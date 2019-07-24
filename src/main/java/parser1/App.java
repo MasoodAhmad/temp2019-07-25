@@ -16,8 +16,9 @@ public class App {
         try (BufferedReader br = new BufferedReader(new FileReader("data/Projects.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
+                if(line.startsWith("#"))continue;
                 String[] values = line.split(DELIMITER);
-                projects.put(Integer.parseInt(values[1]), new Project(values[1], values[2]));
+                projects.put(Integer.parseInt(values[1]), new Project(values[0], values[1]));
             }
         }catch (IOException ioe){
             System.out.println(ioe);
@@ -28,6 +29,7 @@ public class App {
         try (BufferedReader br = new BufferedReader(new FileReader("data/Participants.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
+                if(line.startsWith("#"))continue;
                 String[] values     = line.split(DELIMITER);
                 String projectId    = values[1];
                 String role         = values[3];
@@ -55,6 +57,7 @@ public class App {
         try (BufferedReader br = new BufferedReader(new FileReader("data/Orders.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
+                if(line.startsWith("#"))continue;
                 String[] values     = line.split(DELIMITER);
                 String projectId    = values[1];
                 String pendingTask  = values[3]; //writer task, Manager task etc
@@ -81,7 +84,6 @@ public class App {
                         int publisherTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getPublisherTask();
                         projects.get(projectId).getNumber_of_pending_types().setPublisherTask(publisherTaskCount+1);
                     }
-
                 }
             }
         }catch (IOException ioe){
