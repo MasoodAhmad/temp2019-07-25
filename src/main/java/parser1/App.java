@@ -5,11 +5,12 @@ import Pojos.Project;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class App {
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws Exception{//no catch{}. Stop operation if anything goes wrong
         final String DELIMITER = ",";
         Map<Integer,Project> projects = new HashMap<>();
         System.out.println( "Hello World!" );
@@ -20,10 +21,6 @@ public class App {
                 String[] values = line.split(DELIMITER);
                 projects.put(Integer.parseInt(values[1]), new Project(values[0], values[1]));
             }
-        }catch (IOException ioe){
-            System.out.println(ioe);
-        }catch (Exception e){
-            System.out.println(e);
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/Participants.csv"))) {
@@ -46,13 +43,7 @@ public class App {
                     projects.get(projectId).getNumber_of_participant_types().setPublisher(publisherCount+1);
                 }
             }
-        }catch (IOException ioe){
-            System.out.println(ioe);
-        }catch (Exception e){
-            System.out.println(e);
         }
-
-        //Project Id,Keyword,Pending Task,State
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/Orders.csv"))) {
             String line;
@@ -70,11 +61,11 @@ public class App {
                     }
                     if(pendingTask.equals("WebSearchTask")){
                         int webSearchTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getWebSearchTask();
-                        projects.get(projectId).getNumber_of_pending_types().setWriterTask(webSearchTaskCount+1);
+                        projects.get(projectId).getNumber_of_pending_types().setWebSearchTask(webSearchTaskCount+1);
                     }
                     if(pendingTask.equals("EditorTask")){
                         int editorTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getEditorTask();
-                        projects.get(projectId).getNumber_of_pending_types().setWriterTask(editorTaskCount+1);
+                        projects.get(projectId).getNumber_of_pending_types().setEditorTask(editorTaskCount+1);
                     }
                     if(pendingTask.equals("ManagerTask")){
                         int managerTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getManagerTask();
@@ -86,10 +77,6 @@ public class App {
                     }
                 }
             }
-        }catch (IOException ioe){
-            System.out.println(ioe);
-        }catch (Exception e){
-            System.out.println(e);
         }
     }
 }
