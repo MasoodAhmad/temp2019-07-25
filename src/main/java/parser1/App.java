@@ -14,12 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 public class App {
-    public static BufferedReader getReader(String name) {
+    private static BufferedReader getReader(String name) {
         return new BufferedReader(new InputStreamReader(App.class.getResourceAsStream(name)));
     }
 
-    public static void main(String[] args) throws Exception {//no catch{}. Stop operation if anything goes wrong
+    public static void main(String[] args) throws Exception {
+        // TODO: stop parsing CSV manually as line.split() is wrong for live data
         final String DELIMITER = ",";
+        // TODO: change data structure to not be polluted with output formatting
         Map<String, Project> projects = new HashMap<>();
         Map<String, String> orderProjectMap = new HashMap<>();
         try (BufferedReader br = getReader("/data/Projects.csv")) {
