@@ -1,0 +1,9 @@
+#Id,Project Id,Keyword,Pending Task,State
+1,1,Black Shoes,null,approved
+2,1,Tie,WriterTask,pending
+3,2,Shirt,WriterTask,pending
+4,1,Election,WebSearchTask,pending
+5,5,Buy Ticket,null,approved
+6,2,Home,EditorTask,pending
+7,5,Istanbul Fish,ManagerTask,pending
+8,1,Chair,PublisherTask,pending
