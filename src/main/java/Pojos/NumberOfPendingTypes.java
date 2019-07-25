@@ -1,11 +1,12 @@
 package Pojos;
 
-public class numberOfActivityTypes {
+public class NumberOfPendingTypes {
     private int writerTask;
-    private int WebSearchTask;
-    private int editorTask;
+    private int webSearchTask;
     private int publisherTask;
+    private int editorTask;
     private int managerTask;
+
 
     public int getWriterTask() {
         return writerTask;
@@ -16,19 +17,11 @@ public class numberOfActivityTypes {
     }
 
     public int getWebSearchTask() {
-        return WebSearchTask;
+        return webSearchTask;
     }
 
     public void setWebSearchTask(int webSearchTask) {
-        WebSearchTask = webSearchTask;
-    }
-
-    public int getEditorTask() {
-        return editorTask;
-    }
-
-    public void setEditorTask(int editorTask) {
-        this.editorTask = editorTask;
+        this.webSearchTask = webSearchTask;
     }
 
     public int getPublisherTask() {
@@ -39,6 +32,14 @@ public class numberOfActivityTypes {
         this.publisherTask = publisherTask;
     }
 
+    public int getEditorTask() {
+        return editorTask;
+    }
+
+    public void setEditorTask(int editorTask) {
+        this.editorTask = editorTask;
+    }
+
     public int getManagerTask() {
         return managerTask;
     }
@@ -46,4 +47,6 @@ public class numberOfActivityTypes {
     public void setManagerTask(int managerTask) {
         this.managerTask = managerTask;
     }
+
+
 }

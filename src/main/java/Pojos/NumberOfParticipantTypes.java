@@ -1,6 +1,6 @@
 package Pojos;
 
-public class numberOfParticipantTypes {
+public class NumberOfParticipantTypes {
     private int writer;
     private int editor;
     private int publisher;

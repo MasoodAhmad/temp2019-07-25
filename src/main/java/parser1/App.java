@@ -1,14 +1,16 @@
 package parser1;
 
 import Pojos.Project;
-import Pojos.numberOfParticipantTypes;
+import Pojos.NumberOfActivityTypes;
+import Pojos.NumberOfParticipantTypes;
+import Pojos.NumberOfPendingTypes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class App {
@@ -34,19 +36,18 @@ public class App {
                 String[] values     = line.split(DELIMITER);
                 String projectId    = values[1];
                 String role         = values[3];
+                NumberOfParticipantTypes numberOfParticipantTypes = projects.get(projectId).getNumberOfParticipantTypes();
                 if(role.equals("editor")){
-                    int editorCount = (projects.get(projectId)).getNumber_of_participant_types().getEditor();
-                    projects.get(projectId).getNumber_of_participant_types().setEditor(editorCount+1);
+                    int editorCount = numberOfParticipantTypes.getEditor();
+                    numberOfParticipantTypes.setEditor(editorCount+1);
                 }
                 if(role.equals("writer")){
-                    Project project = projects.get(projectId);
-                    numberOfParticipantTypes numberOfParticipantTypes = project.getNumber_of_participant_types();
                     int writerCount = numberOfParticipantTypes.getWriter();
-                    projects.get(projectId).getNumber_of_participant_types().setWriter(writerCount+1);
+                    numberOfParticipantTypes.setWriter(writerCount+1);
                 }
                 if(role.equals("publisher")){
-                    int publisherCount = (projects.get(projectId)).getNumber_of_participant_types().getPublisher();
-                    projects.get(projectId).getNumber_of_participant_types().setPublisher(publisherCount+1);
+                    int publisherCount = numberOfParticipantTypes.getPublisher();
+                    numberOfParticipantTypes.setPublisher(publisherCount+1);
                 }
             }
         }
@@ -62,27 +63,30 @@ public class App {
                 String state        = values[4]; // pending or not
 
                 orderProjectMap.put(orderId, projectId);
+                NumberOfPendingTypes numberOfPendingTypes = projects.get(projectId).getNumberOfPendingTypes();
+                int numberOfOrdersCount = projects.get(projectId).getNumberOfOrders();
+                projects.get(projectId).setNumberOfOrders(numberOfOrdersCount+1);
 
                 if(state.equals("pending")){
                     if(pendingTask.equals("WriterTask")){
-                        int writerTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getWriterTask();
-                        projects.get(projectId).getNumber_of_pending_types().setWriterTask(writerTaskCount+1);
+                        int writerTaskCount = numberOfPendingTypes.getWriterTask();
+                        numberOfPendingTypes.setWriterTask(writerTaskCount+1);
                     }
                     if(pendingTask.equals("WebSearchTask")){
-                        int webSearchTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getWebSearchTask();
-                        projects.get(projectId).getNumber_of_pending_types().setWebSearchTask(webSearchTaskCount+1);
+                        int webSearchTaskCount = numberOfPendingTypes.getWebSearchTask();
+                        numberOfPendingTypes.setWebSearchTask(webSearchTaskCount+1);
                     }
                     if(pendingTask.equals("EditorTask")){
-                        int editorTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getEditorTask();
-                        projects.get(projectId).getNumber_of_pending_types().setEditorTask(editorTaskCount+1);
+                        int editorTaskCount = numberOfPendingTypes.getEditorTask();
+                        numberOfPendingTypes.setEditorTask(editorTaskCount+1);
                     }
                     if(pendingTask.equals("ManagerTask")){
-                        int managerTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getManagerTask();
-                        projects.get(projectId).getNumber_of_pending_types().setManagerTask(managerTaskCount+1);
+                        int managerTaskCount = numberOfPendingTypes.getManagerTask();
+                        numberOfPendingTypes.setManagerTask(managerTaskCount+1);
                     }
                     if(pendingTask.equals("PublisherTask")){
-                        int publisherTaskCount = (projects.get(projectId)).getNumber_of_pending_types().getPublisherTask();
-                        projects.get(projectId).getNumber_of_pending_types().setPublisherTask(publisherTaskCount+1);
+                        int publisherTaskCount = numberOfPendingTypes.getPublisherTask();
+                        numberOfPendingTypes.setPublisherTask(publisherTaskCount+1);
                     }
                 }
             }
@@ -95,33 +99,36 @@ public class App {
                 String[] values    = line.split(DELIMITER);
                 String orderId     = values[1];
                 String taskType    = values[2];
-                String projectId   = orderProjectMap.get(orderId); //join
+                String projectId   = orderProjectMap.get(orderId); //join table
+                NumberOfActivityTypes numberOfActivityTypes = projects.get(projectId).getNumberOfActivityTypes();
+
                     if(taskType.equals("WriterTask")){
-                        int writerTaskCount = (projects.get(projectId)).getNumber_of_activity_types().getWriterTask();
-                        projects.get(projectId).getNumber_of_activity_types().setWriterTask(writerTaskCount+1);
+                        int writerTaskCount = numberOfActivityTypes.getWriterTask();
+                        numberOfActivityTypes.setWriterTask(writerTaskCount+1);
                     }
                     if(taskType.equals("EditorTask")){
-                        int editorTaskCount = (projects.get(projectId)).getNumber_of_activity_types().getEditorTask();
-                        projects.get(projectId).getNumber_of_activity_types().setEditorTask(editorTaskCount+1);
+                        int editorTaskCount = numberOfActivityTypes.getEditorTask();
+                        numberOfActivityTypes.setEditorTask(editorTaskCount+1);
                     }
                     if(taskType.equals("WebSearchTask")){
-                        int webSearchTaskCount = (projects.get(projectId)).getNumber_of_activity_types().getWebSearchTask();
-                        projects.get(projectId).getNumber_of_activity_types().setWebSearchTask(webSearchTaskCount+1);
+                        int webSearchTaskCount = numberOfActivityTypes.getWebSearchTask();
+                        numberOfActivityTypes.setWebSearchTask(webSearchTaskCount+1);
                     }
                     if(taskType.equals("PublisherTask")){
-                        int publisherTaskCount = (projects.get(projectId)).getNumber_of_activity_types().getPublisherTask();
-                        projects.get(projectId).getNumber_of_activity_types().setPublisherTask(publisherTaskCount+1);
+                        int publisherTaskCount = numberOfActivityTypes.getPublisherTask();
+                        numberOfActivityTypes.setPublisherTask(publisherTaskCount+1);
                     }
                     if(taskType.equals("ManagerTask")){
-                        int managerTaskCount = (projects.get(projectId)).getNumber_of_activity_types().getManagerTask();
-                        projects.get(projectId).getNumber_of_activity_types().setManagerTask(managerTaskCount+1);
+                        int managerTaskCount = numberOfActivityTypes.getManagerTask();
+                        numberOfActivityTypes.setManagerTask(managerTaskCount+1);
                     }
-
                 }
             }
+            List<Project> projectsForOutPut = new ArrayList<>();
             ObjectMapper objectMapper = new ObjectMapper();
             Object json = objectMapper.readValue(
-                    objectMapper.writeValueAsString(projects), Object.class);
+//                    objectMapper.writeValueAsString(projects), Object.class); //works
+                    objectMapper.writeValueAsString(projectsForOutPut.addAll(projects.values())), Object.class);// just prints 'true'
 
             System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
                     .writeValueAsString(json));

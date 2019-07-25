@@ -3,10 +3,10 @@ package Pojos;
 public class Project {
     private String id;
     private String name;
-    private int number_of_orders; //Java style is camel case but ignore for data output
-    private numberOfPendingTypes number_of_pending_types = new numberOfPendingTypes();
-    private numberOfParticipantTypes number_of_participant_types = new numberOfParticipantTypes();
-    private numberOfActivityTypes number_of_activity_types = new numberOfActivityTypes();
+    private int numberOfOrders; //Java style is camel case but ignore for data output
+    private NumberOfPendingTypes numberOfPendingTypes = new NumberOfPendingTypes();
+    private NumberOfParticipantTypes numberOfParticipantTypes = new NumberOfParticipantTypes();
+    private NumberOfActivityTypes numberOfActivityTypes = new NumberOfActivityTypes();
 
     public Project(String id, String name) {
         this.id = id;
@@ -29,36 +29,36 @@ public class Project {
         this.name = name;
     }
 
-    public int getNumber_of_orders() {
-        return number_of_orders;
+    public int getNumberOfOrders() {
+        return numberOfOrders;
     }
 
-    public void setNumber_of_orders(int number_of_orders) {
-        this.number_of_orders = number_of_orders;
+    public void setNumberOfOrders(int numberOfOrders) {
+        this.numberOfOrders = numberOfOrders;
     }
 
-    public numberOfPendingTypes getNumber_of_pending_types() {
-        return number_of_pending_types;
+    public NumberOfPendingTypes getNumberOfPendingTypes() {
+        return numberOfPendingTypes;
     }
 
-    public void setNumber_of_pending_types(numberOfPendingTypes number_of_pending_types) {
-        this.number_of_pending_types = number_of_pending_types;
+    public void setNumberOfPendingTypes(NumberOfPendingTypes numberOfPendingTypes) {
+        this.numberOfPendingTypes = numberOfPendingTypes;
     }
 
-    public numberOfParticipantTypes getNumber_of_participant_types() {
-        return number_of_participant_types;
+    public NumberOfParticipantTypes getNumberOfParticipantTypes() {
+        return numberOfParticipantTypes;
     }
 
-    public void setNumber_of_participant_types(numberOfParticipantTypes number_of_participant_types) {
-        this.number_of_participant_types = number_of_participant_types;
+    public void setNumberOfParticipantTypes(NumberOfParticipantTypes numberOfParticipantTypes) {
+        this.numberOfParticipantTypes = numberOfParticipantTypes;
     }
 
-    public numberOfActivityTypes getNumber_of_activity_types() {
-        return number_of_activity_types;
+    public NumberOfActivityTypes getNumberOfActivityTypes() {
+        return numberOfActivityTypes;
     }
 
-    public void setNumber_of_activity_types(numberOfActivityTypes number_of_activity_types) {
-        this.number_of_activity_types = number_of_activity_types;
+    public void setNumberOfActivityTypes(NumberOfActivityTypes numberOfActivityTypes) {
+        this.numberOfActivityTypes = numberOfActivityTypes;
     }
 
 
