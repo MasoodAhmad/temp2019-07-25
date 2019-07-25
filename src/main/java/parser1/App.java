@@ -1,136 +1,138 @@
 package parser1;
 
-import Pojos.Project;
-import Pojos.NumberOfActivityTypes;
-import Pojos.NumberOfParticipantTypes;
-import Pojos.NumberOfPendingTypes;
+import pojos.Project;
+import pojos.NumberOfActivityTypes;
+import pojos.NumberOfParticipantTypes;
+import pojos.NumberOfPendingTypes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class App {
-    public static void main( String[] args ) throws Exception{//no catch{}. Stop operation if anything goes wrong
+    public static BufferedReader getReader(String name) {
+        return new BufferedReader(new InputStreamReader(App.class.getResourceAsStream(name)));
+    }
+
+    public static void main(String[] args) throws Exception {//no catch{}. Stop operation if anything goes wrong
         final String DELIMITER = ",";
-        Map<String,Project> projects = new HashMap<>();
+        Map<String, Project> projects = new HashMap<>();
         Map<String, String> orderProjectMap = new HashMap<>();
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Projects.csv"))) {
+        try (BufferedReader br = getReader("/data/Projects.csv")) {
             String line;
             while ((line = br.readLine()) != null) {
-                if(line.startsWith("#"))continue;
+                if (line.startsWith("#")) continue;
                 String[] values = line.split(DELIMITER);
                 projects.put((values[0]), new Project(values[0], values[1]));
             }
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Participants.csv"))) {
+        try (BufferedReader br = getReader("/data/Participants.csv")) {
             String line;
             while ((line = br.readLine()) != null) {
-                if(line.startsWith("#"))continue;
-                String[] values     = line.split(DELIMITER);
-                String projectId    = values[1];
-                String role         = values[3];
+                if (line.startsWith("#")) continue;
+                String[] values = line.split(DELIMITER);
+                String projectId = values[1];
+                String role = values[3];
                 NumberOfParticipantTypes numberOfParticipantTypes = projects.get(projectId).getNumberOfParticipantTypes();
-                if(role.equals("editor")){
+                if (role.equals("editor")) {
                     int editorCount = numberOfParticipantTypes.getEditor();
-                    numberOfParticipantTypes.setEditor(editorCount+1);
+                    numberOfParticipantTypes.setEditor(editorCount + 1);
                 }
-                if(role.equals("writer")){
+                if (role.equals("writer")) {
                     int writerCount = numberOfParticipantTypes.getWriter();
-                    numberOfParticipantTypes.setWriter(writerCount+1);
+                    numberOfParticipantTypes.setWriter(writerCount + 1);
                 }
-                if(role.equals("publisher")){
+                if (role.equals("publisher")) {
                     int publisherCount = numberOfParticipantTypes.getPublisher();
-                    numberOfParticipantTypes.setPublisher(publisherCount+1);
+                    numberOfParticipantTypes.setPublisher(publisherCount + 1);
                 }
             }
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Orders.csv"))) {
+        try (BufferedReader br = getReader("/data/Orders.csv")) {
             String line;
             while ((line = br.readLine()) != null) {
-                if(line.startsWith("#"))continue;
-                String[] values     = line.split(DELIMITER);
-                String orderId      = values[0];
-                String projectId    = values[1];
-                String pendingTask  = values[3]; //writer task, Manager task etc
-                String state        = values[4]; // pending or not
+                if (line.startsWith("#")) continue;
+                String[] values = line.split(DELIMITER);
+                String orderId = values[0];
+                String projectId = values[1];
+                String pendingTask = values[3]; //writer task, Manager task etc
+                String state = values[4]; // pending or not
 
                 orderProjectMap.put(orderId, projectId);
                 NumberOfPendingTypes numberOfPendingTypes = projects.get(projectId).getNumberOfPendingTypes();
                 int numberOfOrdersCount = projects.get(projectId).getNumberOfOrders();
-                projects.get(projectId).setNumberOfOrders(numberOfOrdersCount+1);
+                projects.get(projectId).setNumberOfOrders(numberOfOrdersCount + 1);
 
-                if(state.equals("pending")){
-                    if(pendingTask.equals("WriterTask")){
+                if (state.equals("pending")) {
+                    if (pendingTask.equals("WriterTask")) {
                         int writerTaskCount = numberOfPendingTypes.getWriterTask();
-                        numberOfPendingTypes.setWriterTask(writerTaskCount+1);
+                        numberOfPendingTypes.setWriterTask(writerTaskCount + 1);
                     }
-                    if(pendingTask.equals("WebSearchTask")){
+                    if (pendingTask.equals("WebSearchTask")) {
                         int webSearchTaskCount = numberOfPendingTypes.getWebSearchTask();
-                        numberOfPendingTypes.setWebSearchTask(webSearchTaskCount+1);
+                        numberOfPendingTypes.setWebSearchTask(webSearchTaskCount + 1);
                     }
-                    if(pendingTask.equals("EditorTask")){
+                    if (pendingTask.equals("EditorTask")) {
                         int editorTaskCount = numberOfPendingTypes.getEditorTask();
-                        numberOfPendingTypes.setEditorTask(editorTaskCount+1);
+                        numberOfPendingTypes.setEditorTask(editorTaskCount + 1);
                     }
-                    if(pendingTask.equals("ManagerTask")){
+                    if (pendingTask.equals("ManagerTask")) {
                         int managerTaskCount = numberOfPendingTypes.getManagerTask();
-                        numberOfPendingTypes.setManagerTask(managerTaskCount+1);
+                        numberOfPendingTypes.setManagerTask(managerTaskCount + 1);
                     }
-                    if(pendingTask.equals("PublisherTask")){
+                    if (pendingTask.equals("PublisherTask")) {
                         int publisherTaskCount = numberOfPendingTypes.getPublisherTask();
-                        numberOfPendingTypes.setPublisherTask(publisherTaskCount+1);
+                        numberOfPendingTypes.setPublisherTask(publisherTaskCount + 1);
                     }
                 }
             }
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Activities.csv"))) {
+        try (BufferedReader br = getReader("/data/Activities.csv")) {
             String line;
             while ((line = br.readLine()) != null) {
-                if(line.startsWith("#"))continue;
-                String[] values    = line.split(DELIMITER);
-                String orderId     = values[1];
-                String taskType    = values[2];
-                String projectId   = orderProjectMap.get(orderId); //join table
+                if (line.startsWith("#")) continue;
+                String[] values = line.split(DELIMITER);
+                String orderId = values[1];
+                String taskType = values[2];
+                String projectId = orderProjectMap.get(orderId); //join table
                 NumberOfActivityTypes numberOfActivityTypes = projects.get(projectId).getNumberOfActivityTypes();
 
-                    if(taskType.equals("WriterTask")){
-                        int writerTaskCount = numberOfActivityTypes.getWriterTask();
-                        numberOfActivityTypes.setWriterTask(writerTaskCount+1);
-                    }
-                    if(taskType.equals("EditorTask")){
-                        int editorTaskCount = numberOfActivityTypes.getEditorTask();
-                        numberOfActivityTypes.setEditorTask(editorTaskCount+1);
-                    }
-                    if(taskType.equals("WebSearchTask")){
-                        int webSearchTaskCount = numberOfActivityTypes.getWebSearchTask();
-                        numberOfActivityTypes.setWebSearchTask(webSearchTaskCount+1);
-                    }
-                    if(taskType.equals("PublisherTask")){
-                        int publisherTaskCount = numberOfActivityTypes.getPublisherTask();
-                        numberOfActivityTypes.setPublisherTask(publisherTaskCount+1);
-                    }
-                    if(taskType.equals("ManagerTask")){
-                        int managerTaskCount = numberOfActivityTypes.getManagerTask();
-                        numberOfActivityTypes.setManagerTask(managerTaskCount+1);
-                    }
+                if (taskType.equals("WriterTask")) {
+                    int writerTaskCount = numberOfActivityTypes.getWriterTask();
+                    numberOfActivityTypes.setWriterTask(writerTaskCount + 1);
+                }
+                if (taskType.equals("EditorTask")) {
+                    int editorTaskCount = numberOfActivityTypes.getEditorTask();
+                    numberOfActivityTypes.setEditorTask(editorTaskCount + 1);
+                }
+                if (taskType.equals("WebSearchTask")) {
+                    int webSearchTaskCount = numberOfActivityTypes.getWebSearchTask();
+                    numberOfActivityTypes.setWebSearchTask(webSearchTaskCount + 1);
+                }
+                if (taskType.equals("PublisherTask")) {
+                    int publisherTaskCount = numberOfActivityTypes.getPublisherTask();
+                    numberOfActivityTypes.setPublisherTask(publisherTaskCount + 1);
+                }
+                if (taskType.equals("ManagerTask")) {
+                    int managerTaskCount = numberOfActivityTypes.getManagerTask();
+                    numberOfActivityTypes.setManagerTask(managerTaskCount + 1);
                 }
             }
-            List<Project> projectsForOutPut = new ArrayList<>();
-            ObjectMapper objectMapper = new ObjectMapper();
-            Object json = objectMapper.readValue(
-//                    objectMapper.writeValueAsString(projects), Object.class); //works
-                    objectMapper.writeValueAsString(projectsForOutPut.addAll(projects.values())), Object.class);// just prints 'true'
-
-            System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(json));
         }
+        List<Project> projectsForOutPut = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object json = objectMapper.readValue(
+//                    objectMapper.writeValueAsString(projects), Object.class); //works
+                objectMapper.writeValueAsString(projectsForOutPut.addAll(projects.values())), Object.class);// just prints 'true'
+
+        System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(json));
     }
+}
