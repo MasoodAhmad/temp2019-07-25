@@ -6,8 +6,7 @@ import Pojos.NumberOfParticipantTypes;
 import Pojos.NumberOfPendingTypes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +15,10 @@ import java.util.Map;
 public class App {
     public static void main( String[] args ) throws Exception{//no catch{}. Stop operation if anything goes wrong
         final String DELIMITER = ",";
+        final String dataDirectory = System.getProperty("user.dir")+"/src/main/java/data/"; //can also use .getResourceAsStream for relative path
         Map<String,Project> projects = new HashMap<>();
         Map<String, String> orderProjectMap = new HashMap<>();
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Projects.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataDirectory+"Projects.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.startsWith("#"))continue;
@@ -29,7 +27,7 @@ public class App {
             }
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Participants.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataDirectory+"Participants.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.startsWith("#"))continue;
@@ -52,7 +50,8 @@ public class App {
             }
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Orders.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataDirectory+"Orders.csv"))) {
+
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.startsWith("#"))continue;
@@ -92,7 +91,7 @@ public class App {
             }
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/user1/IdeaProjects/parser1/src/main/java/data/Activities.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dataDirectory+"Activities.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.startsWith("#"))continue;
@@ -125,10 +124,11 @@ public class App {
                 }
             }
             List<Project> projectsForOutPut = new ArrayList<>();
+            projectsForOutPut.addAll(projects.values());
             ObjectMapper objectMapper = new ObjectMapper();
             Object json = objectMapper.readValue(
 //                    objectMapper.writeValueAsString(projects), Object.class); //works
-                    objectMapper.writeValueAsString(projectsForOutPut.addAll(projects.values())), Object.class);// just prints 'true'
+                    objectMapper.writeValueAsString(projectsForOutPut), Object.class);// just prints 'true'
 
             System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
                     .writeValueAsString(json));
