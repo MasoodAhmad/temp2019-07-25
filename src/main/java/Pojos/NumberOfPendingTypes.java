@@ -1,5 +1,8 @@
 package Pojos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_DEFAULT )
 public class NumberOfPendingTypes {
     private int writerTask;
     private int webSearchTask;

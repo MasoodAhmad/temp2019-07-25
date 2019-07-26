@@ -1,5 +1,8 @@
 package Pojos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_DEFAULT )
 public class Project {
     private String id;
     private String name;
@@ -8,6 +11,9 @@ public class Project {
     private NumberOfParticipantTypes numberOfParticipantTypes = new NumberOfParticipantTypes();
     private NumberOfActivityTypes numberOfActivityTypes = new NumberOfActivityTypes();
 
+    public Project(){
+
+    }
     public Project(String id, String name) {
         this.id = id;
         this.name = name;

@@ -5,6 +5,7 @@ import Pojos.NumberOfActivityTypes;
 import Pojos.NumberOfParticipantTypes;
 import Pojos.NumberOfPendingTypes;
 import Pojos.Project;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @author Masood Ahmad
  * @version 1.0
  */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT )
 public class Parse implements IConstants{
     public static Map<String, Project> parseCsv() throws Exception{//no catch{}. Stop operation if anything goes wrong
         Map<String,Project> projects = new HashMap<>();
@@ -148,9 +150,7 @@ public class Parse implements IConstants{
         projectsForOutPut.addAll(projects.values());
         ObjectMapper objectMapper = new ObjectMapper();
         Object json = objectMapper.readValue(
-//                    objectMapper.writeValueAsString(projects), Object.class); //works
-                objectMapper.writeValueAsString(projectsForOutPut), Object.class);// just prints 'true'
-
+        objectMapper.writeValueAsString(projectsForOutPut), Object.class);
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(json));
         return projects;
