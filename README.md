@@ -22,18 +22,18 @@ expected result:
       {
         "id": "1",
         "name": "Project 1",
-        "number_of_orders": 4,
-        "number_of_pending_types": {
+        "numberOfOrders": 4,
+        "numberOfPendingTypes": {
           "WriterTask": 1,
           "WebSearchTask": 1,
           "PublisherTask": 1
         },
-        "number_of_participant_types": {
+        "numberOfParticipantTypes": {
           "writer": 3,
           "editor": 1,
           "publisher": 1
         },
-        "number_of_activity_types": {
+        "numberOfActivityTypes": {
           "WriterTask": 4,
           "WebSearchTask": 3,
           "EditorTask": 1,
@@ -43,10 +43,10 @@ expected result:
       {
         "id": "3",
         "name": "Project 3",
-        "number_of_orders": 0,
-        "number_of_pending_types": null,
-        "number_of_participant_types": 0,
-        "number_of_activity_types": null
+        "numberOfOrders": 0,
+        "numberOfPendingTypes": null,
+        "numberOfParticipantTypes": 0,
+        "numberOfActivityTypes": null
       }
     ]
 
