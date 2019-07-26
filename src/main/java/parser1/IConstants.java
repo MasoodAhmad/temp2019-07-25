@@ -1,20 +1,20 @@
 package parser1;
 
 public interface IConstants {
-    final String DELIMITER = ",";
-    final String dataDirectory = System.getProperty("user.dir") + "/src/main/java/data/"; //can also use .getResourceAsStream for relative path
-    final String ignoreStringWhileParsing = "#";
+    String DELIMITER = ",";
+    String dataDirectory = System.getProperty("user.dir") + "/src/main/java/data/"; //can also use .getResourceAsStream for relative path
+    String ignoreStringWhileParsing = "#";
 
-    final String TASK_STATE_PENDING = "pending";
-    final String TASK_STATE_WRITER_TASK = "WriterTask";
-    final String TASK_STATE_WEB_SEARCH_TASK = "WebSearchTask";
-    final String TASK_STATE_EDITOR_TASK = "EditorTask";
-    final String TASK_STATE_MANAGER_TASK = "ManagerTask";
-    final String TASK_STATE_PUBLISHER_TASK = "PublisherTask";
+    String TASK_STATE_PENDING = "pending";
+    String TASK_STATE_WRITER_TASK = "WriterTask";
+    String TASK_STATE_WEB_SEARCH_TASK = "WebSearchTask";
+    String TASK_STATE_EDITOR_TASK = "EditorTask";
+    String TASK_STATE_MANAGER_TASK = "ManagerTask";
+    String TASK_STATE_PUBLISHER_TASK = "PublisherTask";
 
-    final String ROLE_WRITER = "writer";
-    final String ROLE_EDITOR = "editor";
-    final String ROLE_PUBLISHER = "publisher";
+    String ROLE_WRITER = "writer";
+    String ROLE_EDITOR = "editor";
+    String ROLE_PUBLISHER = "publisher";
 
 }
 
